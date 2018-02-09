@@ -83,4 +83,8 @@ public class OdometerService extends Service {
     public double getDistanceInMiles(){
         return distanceInMeters/1609.344;
     }
+
+    public void resetDistance(){
+        distanceInMeters=0;
+    }
 }

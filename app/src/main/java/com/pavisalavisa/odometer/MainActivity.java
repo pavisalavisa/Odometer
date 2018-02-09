@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         Intent intent=new Intent(this,OdometerService.class);
         bindService(intent,connection, Context.BIND_AUTO_CREATE);
-        
+
     }
 
     @Override
@@ -62,12 +63,16 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 double distance=0.0;
                 if(odometer!=null){
-                    distance=odometer.getDistanceInMiles();
+                    distance=odometer.getDistanceInMeters();
                 }
-                String distanceStr=String.format("%1$,.2f miles",distance);
+                String distanceStr=String.format("%1$,.2f meters",distance);
                 distanceView.setText(distanceStr);
                 handler.postDelayed(this,1000);
             }
         });
+    }
+
+    public void resetDistance(View view){
+        odometer.resetDistance();
     }
 }
